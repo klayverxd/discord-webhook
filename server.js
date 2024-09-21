@@ -1,4 +1,7 @@
+import http from "http";
 import fetch from "node-fetch";
+
+const PORT = process.env.PORT || 3003;
 
 // URL do webhook do Discord
 const webhookUrl =
@@ -75,3 +78,12 @@ const scheduleFollowUpMessages = () => {
 setInterval(checkTimeAndSend, 60 * 1000);
 
 console.log("Bot de agendamento iniciado...");
+
+const server = http.createServer((req, res) => {
+	res.writeHead(200, { "Content-Type": "text/plain" });
+	res.end("O bot esta rodando!\n");
+});
+
+server.listen(PORT, () => {
+	console.log(`Servidor rodando na porta ${PORT}`);
+});
